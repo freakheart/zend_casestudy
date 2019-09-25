@@ -1,0 +1,24 @@
+<?php
+$title = 'Certificates';
+$this->headTitle($title);
+?>
+<h1><?= $this->escapeHtml($title).' ('.$certificates->count().')' ?></h1>
+<table class="table">
+	<tr>
+		<th>ISIN</th>
+		<th>Display as XML</th>
+		<th>Display as HTML</th>
+	</tr>
+<?php foreach ($certificates as $certificate):?>
+    <tr>
+		<td><?= $this->escapeHtml($certificate->isin) ?></td>
+		<td><a
+			href="<?= $this->url('certificate', ['action' => 'getXml', 'id' => $certificate->certificate_id]) ?>">XML</a></td>
+		<td><a
+			href="<?= $this->url('certificate', ['action' => 'getHtml', 'id' => $certificate->certificate_id]) ?>">HTML</a>
+		
+		<td>
+	
+	</tr>
+<?php endforeach; ?>
+</table>

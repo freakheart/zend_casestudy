@@ -1,0 +1,64 @@
+<div class="row">
+	<div class="span6">
+		<dl class="dl-horizontal">
+			<div class="widget-header">
+				<h2>Certificate Details</h2>
+			</div>
+<?php
+foreach ($certificate as $label => $value) {
+    if (! is_object($value)) {
+        ?>		<dt><?php echo $label; ?></dt>
+			<dd><?php echo $value; ?></dd>
+<?php
+    }
+}
+?>
+
+<?php if ($certificate->getDocuments()) { ?>
+    <div class="span6">
+				<div class="widget" id="documents-widget">
+					<div class="widget-header">
+						<h4>
+							Attached documents <em>(<?php echo count($certificate->getDocuments()); ?>)</em>
+						</h4>
+					</div>
+					<ul class="widget-listing">
+<?php
+    
+foreach ($certificate->getDocuments() as $document) {
+        ?>
+                <li><a
+							href="/certificates/<?php echo $certificate->isin; ?>/documents/<?php echo $document->certificate_id; ?>"
+							onclick="return false;"> <i class="icon-file"></i>
+                        <?php echo $document->document_name; ?>
+                    </a></li>
+                <?php } ?>
+            </ul>
+				</div>
+			</div><?php } ?>
+			
+<?php if ($certificate->getDocuments()) { ?>
+    <div class="span6">
+				<div class="widget" id="documents-widget">
+					<div class="widget-header">
+						<h4>
+							History
+						</h4>
+					</div>
+					
+<?php
+    
+foreach ($certificate->getHistory() as $history) {
+        ?>
+                <dt><?php echo $history->price; ?></dt>
+                <dd><?php echo date('d-m-y h:i:s', $history->creation_date); ?></dd>
+                <?php } ?>
+            
+				</div>
+			</div><?php } ?>
+         
+            <br />
+			<a href="/certificate">&larr; back</a>
+		</dl>
+	</div>
+</div>
